@@ -5,6 +5,7 @@
     <string name="username">jdoe</string>
     <string name="password">welcom1</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="add_customer">Add New Customer</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -18,5 +19,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="done_button_text">Done</string>
+    <string name="date_string">Monday, Sep 5, 2016</string>
+    <string name="complete_string">Complete</string>
+    <string name="literal_date_string">Date</string>
+    <string name="new_credit_button">Use new credit card</string>
+    <string name="current_credit_button_string">Pay with current credit card</string>
+    <string name="payment_success_string">Payment Success! Would you like the reciept emailed or printed?</string>
+    <string name="print">Print</string>
 
 </resources>

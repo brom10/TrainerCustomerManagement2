@@ -11,6 +11,12 @@
               tools:context="com.begnerdranch.android.trainercustomermanagement.LoginActivity">
 
     <!-- Login progress -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logged_in_container">
+    </FrameLayout>
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -74,4 +80,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
