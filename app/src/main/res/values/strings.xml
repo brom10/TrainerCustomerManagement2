@@ -3,9 +3,11 @@
     <string name="login_good">Welcome</string>
     <string name="login_bad">Incorrect username or password</string>
     <string name="username">jdoe</string>
-    <string name="password">welcom1</string>
+    <string name="password">welcome1</string>
     <string name="title_activity_login">Sign in</string>
     <string name="add_customer">Add New Customer</string>
+    <string name="new_customer">New Customer</string>
+    <string name="log_out_button">Log Out</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

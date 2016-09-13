@@ -23,13 +23,4 @@
         android:id="@+id/user_logged_in"
         />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log Out"
-        android:id="@+id/log_out_button"
-        android:layout_weight="1"
-        android:layout_gravity="top|center"
-        android:singleLine="true"/>
-
 </LinearLayout>

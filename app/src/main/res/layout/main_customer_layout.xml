@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <FrameLayout
-        android:id="@+id/logged_in_container"
+        android:id="@+id/logged_in_container_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="85">
     </FrameLayout>
     <FrameLayout
-        android:id="@+id/main_fragment_container"
+        android:id="@+id/main_fragment_containe_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="15">
