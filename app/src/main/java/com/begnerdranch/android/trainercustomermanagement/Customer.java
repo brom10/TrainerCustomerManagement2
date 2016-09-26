@@ -4,16 +4,13 @@ import android.widget.ImageView;
 
 import java.util.UUID;
 
-/**
- * Created by Benjamin_2 on 9/12/2016.
- */
 public class Customer {
-    private String mFirstName;
-    private String mLastName;
-    private String mPhone;
-    private String mAddress;
-    private String mCreditCardNum;
-    private ImageView mProfilePic;
+    private String mFirstName = null;
+    private String mLastName = null;
+    private String mPhone = null;
+    private String mAddress = null;
+    private String mCreditCardNum = null;
+    private ImageView mProfilePic = null;
     private UUID id;
 
     public void setId(UUID id) {
@@ -26,7 +23,11 @@ public class Customer {
     }
 
     public Customer() {
-        id = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Customer(UUID newID) {
+        id = newID;
     }
 
     public void setLastName(String lastName) {

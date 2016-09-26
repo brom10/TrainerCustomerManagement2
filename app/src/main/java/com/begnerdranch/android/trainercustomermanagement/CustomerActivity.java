@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.UUID;
 
-/**
- * Created by Benjamin on 9/12/2016.
- */
 public class CustomerActivity extends AppCompatActivity {
     public static final String EXTRA_CUSTOMER_ID = "com.begnerdranch.android.trainercustomermanagement.customer_id";
     @Override

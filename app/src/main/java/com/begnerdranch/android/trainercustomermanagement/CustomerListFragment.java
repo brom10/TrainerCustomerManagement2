@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by Benjamin on 9/12/2016.
- */
 public class CustomerListFragment extends Fragment{
     private RecyclerView mRecyclerView;
     private CustomerAdapter mCustomerAdapter;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,14 @@ public class CustomerListFragment extends Fragment{
     private void updateUI() {
         CustomerList customerList = CustomerList.get(getActivity());
         List<Customer> customers = customerList.getCustomers();
-
-        mCustomerAdapter = new CustomerAdapter(customers);
-        mRecyclerView.setAdapter(mCustomerAdapter);
+        if (mCustomerAdapter == null) {
+            mCustomerAdapter = new CustomerAdapter(customers);
+            mRecyclerView.setAdapter(mCustomerAdapter);
+        }
+        else {
+            mCustomerAdapter.setCustomers(customers);
+            mCustomerAdapter.notifyDataSetChanged();
+        }
     }
 
     private class CustomerAdapter extends RecyclerView.Adapter<CustomerHolder> {
@@ -69,6 +77,10 @@ public class CustomerListFragment extends Fragment{
         public int getItemCount() {
             return mCustomers.size();
         }
+
+        public void setCustomers(List<Customer> customers) {
+            mCustomers = customers;
+        }
     }
 
     private class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,7 +89,7 @@ public class CustomerListFragment extends Fragment{
 
         @Override
         public void onClick(View v) {
-            Intent intent = CustomerActivity.newIntent(getActivity(), null);
+            Intent intent = CustomerActivity.newIntent(getActivity(), mCustomer.getId());
             startActivity(intent);
         }
 

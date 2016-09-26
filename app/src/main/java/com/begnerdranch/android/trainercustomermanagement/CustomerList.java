@@ -1,17 +1,23 @@
 package com.begnerdranch.android.trainercustomermanagement;
 
+import com.begnerdranch.android.trainercustomermanagement.database.CustomerCursorWrapper;
+import com.begnerdranch.android.trainercustomermanagement.database.CustomerDbSchema.CustomerTable;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.begnerdranch.android.trainercustomermanagement.database.CustomerBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by Benjamin_2 on 9/12/2016.
- */
 public class CustomerList {
     private static CustomerList sCustomerList;
-    private List<Customer> mCustomers;
+
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     public static CustomerList get(Context context) {
         if (sCustomerList == null) {
@@ -19,29 +25,81 @@ public class CustomerList {
         }
         return sCustomerList;
     }
+
+    public void addCustomer(Customer c) {
+        ContentValues values = getContentValues(c);
+        mDatabase.insert(CustomerTable.NAME, null, values);
+    }
     private CustomerList(Context context) {
-        mCustomers = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Customer customer = new Customer();
-            customer.setAddress("1234" + i + " Smith St");
-            customer.setFirstName("John " + i);
-            customer.setLastName("Doe " + i);
-            customer.setCreditCardNum("123485479652524" + i);
-            customer.setPhone("(813)-1234-123" + i);
-            mCustomers.add(customer);
-        }
+        mContext = context.getApplicationContext();
+        mDatabase = new CustomerBaseHelper(mContext).getWritableDatabase();
     }
 
     public List<Customer> getCustomers() {
-        return mCustomers;
+        List<Customer> customers = new ArrayList<>();
+
+        CustomerCursorWrapper cursor = queryCustomers(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                customers.add(cursor.getCustomer());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return customers;
     }
 
     public Customer getCustomer(UUID id) {
-        for (Customer customer: mCustomers) {
-            if (customer.getId().equals(id)) {
-                return customer;
+        CustomerCursorWrapper cursor = queryCustomers(
+                CustomerTable.Cols.UUID + " = ?",
+                new String[] {id.toString()}
+        );
+
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
             }
+            cursor.moveToFirst();
+            return cursor.getCustomer();
+        }finally {
+            cursor.close();
         }
-        return null;
+    }
+
+    public void updateCustomer(Customer customer) {
+        String uuidString = customer.getId().toString();
+        ContentValues values = getContentValues(customer);
+
+        mDatabase.update(CustomerTable.NAME, values,
+                CustomerTable.Cols.UUID + " = ?",
+                new String[] {uuidString});
+    }
+
+    private CustomerCursorWrapper queryCustomers(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                CustomerTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null);
+        return new CustomerCursorWrapper(cursor);
+    }
+
+    private static ContentValues getContentValues(Customer customer) {
+        ContentValues values = new ContentValues();
+        values.put(CustomerTable.Cols.UUID, customer.getId().toString());
+        values.put(CustomerTable.Cols.FIRSTNAME, customer.getFirstName());
+        values.put(CustomerTable.Cols.LASTNAME, customer.getLastName());
+        values.put(CustomerTable.Cols.PHONE, customer.getPhone());
+        values.put(CustomerTable.Cols.ADDRESS, customer.getAddress());
+        values.put(CustomerTable.Cols.CREDITCARD, customer.getCreditCardNum());
+
+        return values;
     }
 }
