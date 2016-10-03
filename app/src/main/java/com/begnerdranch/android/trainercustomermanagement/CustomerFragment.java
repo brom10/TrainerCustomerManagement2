@@ -20,6 +20,7 @@ public class CustomerFragment extends Fragment {
     private Customer mCustomer;
     private RecyclerView mRecyclerView;
     private Button mNewSessionButton;
+    private Button mSaveButton;
     private UUID customerId;
     private EditText mFirstNameView;
     private EditText mLastNameView;
@@ -34,18 +35,6 @@ public class CustomerFragment extends Fragment {
         mCustomer = CustomerList.get(getActivity()).getCustomer(customerId);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        mCustomer.setFirstName(mFirstNameView.getText().toString());
-        mCustomer.setLastName(mLastNameView.getText().toString());
-        mCustomer.setPhone(mPhoneView.getText().toString());
-        mCustomer.setAddress(mAddressView.getText().toString());
-        mCustomer.setCreditCardNum(mCreditCardView.getText().toString());
-
-        CustomerList.get(getActivity()).updateCustomer(mCustomer);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +52,20 @@ public class CustomerFragment extends Fragment {
         mPhoneView.setText(mCustomer.getPhone());
         mAddressView.setText(mCustomer.getAddress());
         mCreditCardView.setText(mCustomer.getCreditCardNum());
+
+        mSaveButton = (Button) v.findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCustomer.setFirstName(mFirstNameView.getText().toString());
+                mCustomer.setLastName(mLastNameView.getText().toString());
+                mCustomer.setPhone(mPhoneView.getText().toString());
+                mCustomer.setAddress(mAddressView.getText().toString());
+                mCustomer.setCreditCardNum(mCreditCardView.getText().toString());
+
+                CustomerList.get(getActivity()).updateCustomer(mCustomer);
+            }
+        });
 
         mNewSessionButton = (Button) v.findViewById(R.id.add_new_session_button);
         mNewSessionButton.setOnClickListener(new View.OnClickListener() {
