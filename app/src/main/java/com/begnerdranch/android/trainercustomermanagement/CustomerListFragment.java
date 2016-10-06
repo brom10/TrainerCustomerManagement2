@@ -1,6 +1,7 @@
 package com.begnerdranch.android.trainercustomermanagement;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 public class CustomerListFragment extends Fragment{
@@ -85,7 +87,9 @@ public class CustomerListFragment extends Fragment{
 
     private class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mFirstTextView;
+        public ImageView mImageView;
         private Customer mCustomer;
+        private File mPhotoFile;
 
         @Override
         public void onClick(View v) {
@@ -98,11 +102,18 @@ public class CustomerListFragment extends Fragment{
             itemView.setOnClickListener(this);
 
             mFirstTextView = (TextView) itemView.findViewById(R.id.name_text_view);
+            mImageView = (ImageView) itemView.findViewById(R.id.profile_pic_list);
         }
 
         public void bindCustomer(Customer customer) {
             mCustomer = customer;
+            mPhotoFile = CustomerList.get(getActivity()).getPhotoFile(mCustomer);
             mFirstTextView.setText(customer.getFirstName() + customer.getLastName());
+            if (mPhotoFile != null && mPhotoFile.exists()) {
+                Bitmap bitmap = PictureUtils.getSmallerScaledBitmap(
+                        mPhotoFile.getPath(), getActivity());
+                mImageView.setImageBitmap(bitmap);
+            }
         }
     }
 }

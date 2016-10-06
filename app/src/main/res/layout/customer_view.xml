@@ -73,11 +73,11 @@
                 android:src="@drawable/images"
                 android:contentDescription="profilepic"/>
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/camera_button"
-                android:drawableBottom="@drawable/camera"
+                android:src="@android:drawable/ic_menu_camera"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>

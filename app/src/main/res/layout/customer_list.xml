@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/profile_pic"
+        android:id="@+id/profile_pic_list"
         android:src="@drawable/images"
         />
 
@@ -15,5 +15,5 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/name_text_view"
-        android:layout_toRightOf="@id/profile_pic"/>
+        android:layout_toRightOf="@id/profile_pic_list"/>
 </RelativeLayout>

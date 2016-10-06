@@ -6,9 +6,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.begnerdranch.android.trainercustomermanagement.database.CustomerBaseHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +26,15 @@ public class CustomerList {
             sCustomerList = new CustomerList(context);
         }
         return sCustomerList;
+    }
+
+    public File getPhotoFile(Customer customer) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null) {
+            return null;
+        }
+        return new File (externalFilesDir, customer.getPhotoFilename());
     }
 
     public void addCustomer(Customer c) {

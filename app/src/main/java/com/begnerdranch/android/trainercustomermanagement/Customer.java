@@ -30,6 +30,10 @@ public class Customer {
         id = newID;
     }
 
+    public String getPhotoFilename() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
     public void setLastName(String lastName) {
         mLastName = lastName;
     }
